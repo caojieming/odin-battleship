@@ -1,3 +1,5 @@
+import { Ship } from './Ship.js'
+
 class Gameboard {
 
     constructor() {
