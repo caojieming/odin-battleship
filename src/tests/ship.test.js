@@ -1,4 +1,4 @@
-import { Ship } from "../models/Ship.js"
+import { Ship } from "../models/Ship.js";
 
 
 test('hit(coord), hits = 0 -> 1', () => {

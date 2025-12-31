@@ -3,10 +3,12 @@ export class Ship {
     /*
     shipCells: array of arrays [row, col] of the ship
     hitCells: array of arrays [row, col] of the ship that are hit
+    shipCode: an uppercase char representing it on the Gameboard
     */
-    constructor(shipCells, hitCells = []) {
+    constructor(shipCells, hitCells = [], shipCode = 'Z') {
         this.shipCells = shipCells;
         this.hitCells = hitCells;
+        this.shipCode = shipCode;
         this.length = shipCells.length;
     }
 
