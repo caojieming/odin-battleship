@@ -19,13 +19,15 @@ test('hit(coord), hits = 0 -> 1 -> 1 (hit same coord, should do nothing on secon
     expect(ship.hitCells.length).toBe(1);
 });
 
-test('hit(coord), hits = 0 -> 1 -> 2', () => {
+test('hit(coord), hits = 0 -> 1 -> 2 -> 2(miss)', () => {
     const cells = [[0,0], [0,1]];
     const ship = new Ship(cells);
     expect(ship.hitCells.length).toBe(0);
     ship.hit([0,0]);
     expect(ship.hitCells.length).toBe(1);
     ship.hit([0,1]);
+    expect(ship.hitCells.length).toBe(2);
+    ship.hit([0,2]);
     expect(ship.hitCells.length).toBe(2);
 });
 
