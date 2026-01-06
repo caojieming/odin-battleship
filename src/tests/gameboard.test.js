@@ -107,3 +107,27 @@ test('allSunk() -> true: both ships sunk', () => {
     expect(board.allSunk()).toBe(true);
     // console.log(board.strBoard());
 });
+
+// dummy test
+test('testing randomBoardPlacement()', () => {
+    const board1 = new Gameboard();
+    expect(board1.ships.length).toBe(5);
+
+    const board2 = new Gameboard();
+    expect(board2.ships.length).toBe(5);
+
+    const board3 = new Gameboard();
+    expect(board3.ships.length).toBe(5);
+
+    const board4 = new Gameboard();
+    expect(board4.ships.length).toBe(5);
+    
+    const board5 = new Gameboard();
+    expect(board5.ships.length).toBe(5);
+
+    console.log(board1.strBoard());
+    console.log(board2.strBoard());
+    console.log(board3.strBoard());
+    console.log(board4.strBoard());
+    console.log(board5.strBoard());
+});

@@ -60,4 +60,11 @@ export class Ship {
         return this.hitCells.length >= this.shipCells.length;
     }
 
+
+    printShipCells() {
+        for(let i = 0; i < this.shipCells.length; i++) {
+            console.log(this.shipCells[i]);
+        }
+    }
+
 }

@@ -3,85 +3,110 @@ import { Ship } from './Ship.js'
 export class Gameboard {
 
     // ships: array of Ship objects
-    constructor(ships = this.randomShipList()) {
+    constructor(ships = []) {
         // create 10x10 board of spaces
         this.board = Array.from({ length: 10 }, () => Array(10).fill(" "));
         this.ships = ships;
 
-        // populate board with ships, loop through ships and add them to the board
-        for(let i = 0; i < ships.length; i++) {
-            const ship = ships[i];
-            
-            // loop through all shipCells, adding them to the board
-            for(let j = 0; j < ship.shipCells.length; j++) {
-                const coord = ship.shipCells[j];
-                const r = coord[0];
-                const c = coord[1];
-                this.board[r][c] = ship.shipCode;
+        if(ships.length === 0) {
+            // this both randomly generates the ship list (this.ships) and populates the board (this.board)
+            this.randomShipPlacement();
+        }
+        else {
+            // populate board with ships, loop through ships and add them to the board
+            for(let i = 0; i < ships.length; i++) {
+                this.placeShipOnBoard(ships[i]);
             }
         }
     }
 
 
-    // will create the 5 classic Battleship ships with random, valid coordinates
-    randomShipList() {
-        const out = [];
+    // given a ship object, place the ship on this.board
+    placeShipOnBoard(ship) {
+        // loop through all shipCells, adding them to the board
+        for(let i = 0; i < ship.shipCells.length; i++) {
+            const coord = ship.shipCells[i];
+            const r = coord[0];
+            const c = coord[1];
+            this.board[r][c] = ship.shipCode;
+        }
+    }
 
+
+    // will create the 5 classic Battleship ships with random, valid coordinates, and attach them to this.ships and this.board
+    randomShipPlacement() {
         // creating Carrier (5)
-        let validLocation = false;
-        while(!validLocation) {
-            const r = Math.floor(Math.random() * 6);
-            const c = Math.floor(Math.random() * 6);
-            const v = Math.floor(Math.random());
+        this.generateAndPlaceShip(5, 'C');
 
-            const shipCells = [];
-
-            // v is for determining vertical or horizontal placement
-            if(v === 1) {
-                // vertical
-                // TODO: work on random placement of ships
-            }
-            else {
-                // horizontal
-
-            }
-
-            // first ship placement should have no conflicts
-            out.push(new Ship(shipCells, 'C'));
-            validLocation = true;
-        }
-        
         // creating Battleship (4)
-        validLocation = false;
-        while(!validLocation) {
-
-        }
+        this.generateAndPlaceShip(4, 'B');
 
         // creating Cruiser (3)
-        validLocation = false;
-        while(!validLocation) {
-
-        }
+        this.generateAndPlaceShip(3, 'C');
 
         // creating Submarine (3)
-        validLocation = false;
-        while(!validLocation) {
-
-        }
+        this.generateAndPlaceShip(3, 'S');
 
         // creating Destroyer (2)
-        validLocation = false;
+        this.generateAndPlaceShip(2, 'D');
+    }
+    generateAndPlaceShip(size, symbol) {
+        // keep looping until a valid ship is generated and placed
+        let validLocation = false;
         while(!validLocation) {
+            const r = Math.floor(Math.random() * (10 - size + 1));
+            const c = Math.floor(Math.random() * (10 - size + 1));
+            const v = Math.floor(Math.random() * 2);
+            const shipCells = [];
+            // used for retrying ship generation if current generation overlaps with an existing ship
+            let retry = false;
 
+            // generate the ship, making sure it doesn't overlap with existing ships
+            for(let i = 0; i < size; i++) {
+                // vertical placement
+                if(v === 1) {
+                    // check if space is available
+                    if(this.board[r + i][c] === ' ') {
+                        shipCells.push([r + i, c]);
+                    }
+                    // otherwise stop current generation of ship and try again
+                    else {
+                        // break out of for loop, and hit the retry conditional to continue while loop
+                        retry = true;
+                        break;
+                    }
+                }
+                // horizontal placement
+                else {
+                    if(this.board[r][c + i] === ' ') {
+                        shipCells.push([r, c + i]);
+                    }
+                    else {
+                        retry = true;
+                        break;
+                    }
+                }
+            }
+
+            // overlapped with existing ship, so continue and retry
+            if(retry) { continue; }
+
+            // formally place the ship on the board (and add ship to this.ships)
+            const newShip = new Ship(shipCells, symbol);
+            this.ships.push(newShip);
+            this.placeShipOnBoard(newShip);
+
+            // successfully placed ship on board, so exit loop
+            validLocation = true;
         }
     }
 
 
     // more for personal testing/debugging than function
     strBoard() {
-        let out = '';
+        let out = '   0   1   2   3   4   5   6   7   8   9\n';
         for(let r = 0; r < this.board.length; r++) {
-            let row = '';
+            let row = `${r} `;
             for(let c = 0; c < this.board[0].length; c++) {
                 row += `[${this.board[r][c]}] `;
             }
