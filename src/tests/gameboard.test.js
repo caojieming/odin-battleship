@@ -108,26 +108,72 @@ test('allSunk() -> true: both ships sunk', () => {
     // console.log(board.strBoard());
 });
 
-// dummy test
+
 test('testing randomBoardPlacement()', () => {
     const board1 = new Gameboard();
     expect(board1.ships.length).toBe(5);
+    // should be 83 blanks, 8 Cs, 4 Bs, 3 Ss, 2 Ds
+    let blankCells = 0;
+    for(let r = 0; r < 10; r++) {
+        for(let c = 0; c < 10; c++) {
+            if(board1.board[r][c] === ' ') {
+                blankCells++;
+            }
+        }
+    }
+    expect(blankCells).toBe(83);
 
     const board2 = new Gameboard();
     expect(board2.ships.length).toBe(5);
+    blankCells = 0;
+    for(let r = 0; r < 10; r++) {
+        for(let c = 0; c < 10; c++) {
+            if(board2.board[r][c] === ' ') {
+                blankCells++;
+            }
+        }
+    }
+    expect(blankCells).toBe(83);
 
     const board3 = new Gameboard();
     expect(board3.ships.length).toBe(5);
+    blankCells = 0;
+    for(let r = 0; r < 10; r++) {
+        for(let c = 0; c < 10; c++) {
+            if(board3.board[r][c] === ' ') {
+                blankCells++;
+            }
+        }
+    }
+    expect(blankCells).toBe(83);
 
     const board4 = new Gameboard();
     expect(board4.ships.length).toBe(5);
+    blankCells = 0;
+    for(let r = 0; r < 10; r++) {
+        for(let c = 0; c < 10; c++) {
+            if(board4.board[r][c] === ' ') {
+                blankCells++;
+            }
+        }
+    }
+    expect(blankCells).toBe(83);
     
     const board5 = new Gameboard();
     expect(board5.ships.length).toBe(5);
+    blankCells = 0;
+    for(let r = 0; r < 10; r++) {
+        for(let c = 0; c < 10; c++) {
+            if(board5.board[r][c] === ' ') {
+                blankCells++;
+            }
+        }
+    }
+    expect(blankCells).toBe(83);
 
-    console.log(board1.strBoard());
-    console.log(board2.strBoard());
-    console.log(board3.strBoard());
-    console.log(board4.strBoard());
-    console.log(board5.strBoard());
+    // console.log(board1.strBoard());
+    // console.log(board2.strBoard());
+    // console.log(board3.strBoard());
+    // console.log(board4.strBoard());
+    // console.log(board5.strBoard());
 });
